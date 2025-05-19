@@ -1,0 +1,48 @@
+Last login: Thu Jan 25 12:57:41 on ttys000
+/Users/jamilurrahmankhan/.zshrc:1: parse error near `)'
+/Users/jamilurrahmankhan/.zshrc:2: parse error near `JAVA_HOME=$(/usr/lib...'
+jamilurrahmankhan@Jamilurs-MacBook-Pro ~ % java --version
+java 21.0.2 2024-01-16 LTS
+Java(TM) SE Runtime Environment (build 21.0.2+13-LTS-58)
+Java HotSpot(TM) 64-Bit Server VM (build 21.0.2+13-LTS-58, mixed mode, sharing)
+jamilurrahmankhan@Jamilurs-MacBook-Pro ~ % touch ~/.zshenv
+jamilurrahmankhan@Jamilurs-MacBook-Pro ~ % open ~/.zshenv
+jamilurrahmankhan@Jamilurs-MacBook-Pro ~ % source ~/.zshenv
+jamilurrahmankhan@Jamilurs-MacBook-Pro ~ % echo $JAVA_HOME
+/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home
+jamilurrahmankhan@Jamilurs-MacBook-Pro ~ % vim hello.java
+
+
+
+
+
+
+
+
+
+
+
+class hello{
+
+public static void main(String[] args){
+        System.out.println("hello world");
+}
+}
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+~                                                                               
+-- INSERT -- 
