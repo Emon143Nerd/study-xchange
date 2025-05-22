@@ -56,7 +56,7 @@ class CompanyController extends Controller
         Company::updateCompany($request, $company->id);
         return redirect('/jobs/company/list')->with('message','Company Updated Successfully');
     }
-
+//hello boss
     public function delete($id)
     {
         $company = Company::findOrFail($id);
