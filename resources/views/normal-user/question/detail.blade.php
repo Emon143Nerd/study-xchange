@@ -84,6 +84,7 @@
                 class="material-icons md-20 me-2 {{ auth()->check() && $question->votes->where('user_id', auth()->id())->where('vote', 1)->count() ? 'text-primary' : 'text-muted' }}">
                 thumb_up_off_alt
             </span>
+{{--                upvote option                                --}}
                                                 <span>{{ number_format($question->upvotes()->count()) }}</span>
                                             </button>
                                         </form>
