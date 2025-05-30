@@ -311,7 +311,7 @@ Route::middleware(['auth', 'verified', 'normal-user'])->group(function () {
 
 });
 
-// hi there, how are you
+
 
 
 Route::middleware('auth')->group(function () {
