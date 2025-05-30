@@ -4,6 +4,8 @@ namespace App\Models\NormalUser;
 
 use Illuminate\Database\Eloquent\Model;
 
+
+
 class ResearchProjectRequest extends Model
 {
     protected $fillable = [

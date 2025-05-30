@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class ResearchTeamMember extends Model
 {
 
+
+
     protected $fillable = [
         'research_project_id',  // Add other fields you want to allow for mass-assignment
         'email',

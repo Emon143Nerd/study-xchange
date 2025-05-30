@@ -1,6 +1,7 @@
 @extends('normal-user.master')
 @extends('normal-user.message')
 
+
 @section('tb-site-sidebar')
     <!-- sidebar is not available -->
 @endsection
