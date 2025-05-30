@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Job;
-
+//
 use App\Http\Controllers\Controller;
 use App\Models\Job\Company;
 use App\Models\Job\JobApplication;
