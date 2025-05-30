@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models\Job;
-
+//
 use App\Models\User;
 use App\Models\UserCertification;
 use App\Models\UserEducation;
