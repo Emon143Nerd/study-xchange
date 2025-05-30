@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
-
+//
 class CompanyUser
 {
     public function handle(Request $request, Closure $next): Response

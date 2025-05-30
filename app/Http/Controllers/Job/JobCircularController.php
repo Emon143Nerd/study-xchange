@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Job;
-
+//
 use App\Http\Controllers\Controller;
 use App\Models\Job\Company;
 use App\Models\Job\JobApplication;
@@ -143,7 +143,7 @@ class JobCircularController extends Controller
     }
 
 
-    // Safe JSON decoding method
+    // Safe JSON decoding method for project
     private function safeJsonDecode($json)
     {
         if (is_array($json)) {
@@ -157,6 +157,7 @@ class JobCircularController extends Controller
         }
 
         return $decoded;
+        //
     }
 
 
