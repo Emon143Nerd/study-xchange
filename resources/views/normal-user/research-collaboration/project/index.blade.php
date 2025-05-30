@@ -64,126 +64,6 @@
 
 
 
-
-
-
-
-    <!-- MAIN CONTENT -->
-{{--    <div class="style-2 main">--}}
-{{--        <!-- Left Component -->--}}
-{{--        <div class="style-2 main-content project " >--}}
-
-{{--            <div class="row">--}}
-{{--                <div class="col-9 col-xl-7 col-md-8 col-sm-12">--}}
-{{--                    <div class="box card-box">--}}
-{{--                        <!-- Total Projects -->--}}
-{{--                        <div class="icon-box bg-color-6 d-block">--}}
-{{--                            <div class="content text-center color-6">--}}
-{{--                                <h5 class="title-box fs-17 font-w500">Total Project</h5>--}}
-{{--                                <div class="themesflat-counter fs-18 font-wb">--}}
-{{--                                    <span class="number">{{ $totalProjects }} +</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <!-- Pending Projects -->--}}
-{{--                        <div class="icon-box bg-color-7 d-block">--}}
-{{--                            <div class="content text-center color-7">--}}
-{{--                                <h5 class="title-box fs-17 font-w500">Pending Project</h5>--}}
-{{--                                <div class="themesflat-counter fs-18 font-wb">--}}
-{{--                                    <span class="number">{{ $pendingProjects }} +</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <!-- Ongoing Projects -->--}}
-{{--                        <div class="icon-box bg-color-8 d-block">--}}
-{{--                            <div class="content text-center color-8">--}}
-{{--                                <h5 class="title-box fs-17 font-w500">On Going Project</h5>--}}
-{{--                                <div class="themesflat-counter fs-18 font-wb">--}}
-{{--                                    <span class="number">{{ $ongoingProjects }} +</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <!-- Completed Projects -->--}}
-{{--                        <div class="icon-box bg-color-9 d-block">--}}
-{{--                            <div class="content text-center color-9">--}}
-{{--                                <h5 class="title-box fs-17 font-w500">Complete Project</h5>--}}
-{{--                                <div class="themesflat-counter fs-18 font-wb">--}}
-{{--                                    <span class="number">{{ $completedProjects }} +</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-{{--            <div class="row">--}}
-{{--                <!-- Left Component: Recent Project Update -->--}}
-{{--                <div class="col-lg-7 col-md-8">--}}
-{{--                    <div class="box-header pt-0 pl-0 ms-0 mb-4 mt-4 border-bottom-0 responsive-header">--}}
-{{--                        <h4 class="box-title fs-22">Recent Project Update</h4>--}}
-{{--                        <div class="card-options">--}}
-{{--                            <div class="btn-list d-flex">--}}
-{{--                                <a href="{{route('normal-user.research-project.create')}}" class="btn text-primary border-primary d-flex align-items-center mr-5">--}}
-{{--                                    <i class='bx bx-plus-circle mr-5'></i>Add Project--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-
-
-
-{{--                    <div class="scrollable-container">--}}
-{{--                        <div class="row">--}}
-{{--                            <!-- First Project Card -->--}}
-{{--                            @foreach($researchProjects as $researchProject)--}}
-{{--                            <div class="col-xl-6 col-md-6 col-sm-12">--}}
-{{--                                <div class="box left-dot">--}}
-{{--                                    <div class="box-body">--}}
-{{--                                        <div class="row">--}}
-{{--                                            <div class="col-12 mb-10">--}}
-{{--                                                <div class="mt-0 text-start">--}}
-{{--                                                    <a href="{{route('normal-user.research-project.detail',['id'=>$researchProject->id])}}" class="box-title mb-0 mt-1 mb-3 font-w600 fs-18">{{$researchProject->title}}</a>--}}
-{{--                                                    <p class="fs-14 font-w500 text-muted mb-6">{{$researchProject->department}}</p>--}}
-{{--                                                    <span class="fs-13 mt-2 text-muted">{{ \Illuminate\Support\Str::limit($researchProject->objective, 25) }}</span>--}}
-{{--                                                </div>--}}
-{{--                                                <img src="{{asset('/')}}normal-user-assets/research-project-assets/images/icon/experience.png" alt="img" class="img-box">--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="box-footer">--}}
-{{--                                        <div class="d-flex align-items-center">--}}
-{{--                                            <div class="d-flex mb-3 mb-md-0">--}}
-{{--                                                <div class="mr-10">--}}
-{{--                                                    <div class="chart-circle chart-circle-xs" data-value="0.75" data-thickness="3" data-color="#3C21F7">--}}
-{{--                                                        <canvas width="40" height="40"></canvas>--}}
-{{--                                                        <div class="chart-circle-value">75%</div>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                                <ul class="user-list mb-0">--}}
-{{--                                                    <li><img src="{{asset('/')}}normal-user-assets/research-project-assets/images/avatar/user-1.png" alt="user"></li>--}}
-{{--                                                    <li><img src="{{asset('/')}}normal-user-assets/research-project-assets/images/avatar/user-2.png" alt="user"></li>--}}
-{{--                                                    <li><img src="{{asset('/')}}normal-user-assets/research-project-assets/images/avatar/user-3.png" alt="user"></li>--}}
-{{--                                                </ul>--}}
-{{--                                            </div>--}}
-
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            @endforeach--}}
-{{--                            <!-- Repeat other project cards here -->--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
-
-
-{{--        </div>--}}
-{{--    </div>--}}
     <!-- END MAIN CONTENT -->
     <div class="container-fluid">
         <div class="row">
@@ -248,21 +128,6 @@
                         </a>
                     </div>
                     <div class="card-body">
-{{--                        <div class="row">--}}
-{{--                            @foreach($researchProjects as $researchProject)--}}
-{{--                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-4">--}}
-{{--                                    <div class="card h-100">--}}
-{{--                                        <div class="card-body">--}}
-{{--                                            <h5 class="card-title mb-2">--}}
-{{--                                                <a href="{{route('normal-user.research-project.detail',['id'=>$researchProject->id])}}" class="text-dark font-weight-bold">{{$researchProject->title}}</a>--}}
-{{--                                            </h5>--}}
-{{--                                            <p class="card-text text-muted mb-2">{{$researchProject->department}}</p>--}}
-{{--                                            <p class="card-text">{{ \Illuminate\Support\Str::limit($researchProject->objective, 100) }}</p>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            @endforeach--}}
-{{--                        </div>--}}
                         <div class="row">
                             @foreach($researchProjects as $researchProject)
                                 <div class="col-md-6 col-lg-4 mb-4">
@@ -299,11 +164,6 @@
                                 </div>
                             @endforeach
                         </div>
-{{--                        <div class="row mt-4">--}}
-{{--                            <div class="col-12 text-center">--}}
-{{--                                <a href="{{route('normal-user.research-project.index')}}" class="btn btn-outline-primary">View All Projects</a>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                     </div>
                 </div>
             </div>

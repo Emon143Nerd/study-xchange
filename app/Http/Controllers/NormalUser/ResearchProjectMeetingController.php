@@ -11,54 +11,8 @@ use App\Models\User;
 use App\Notifications\MeetingCreatedNotification;
 use Illuminate\Http\Request;
 
-
-
-
-
 class ResearchProjectMeetingController extends Controller
 {
-//    public function createMeeting(Request $request, $projectId)
-//    {
-//        $project = ResearchProject::findOrFail($projectId);
-//
-//        // Validate input
-//        $request->validate([
-//            'time1' => 'required|date|after:now',
-//            'time2' => 'required|date|after:now',
-//            'time3' => 'required|date|after:now',
-//            'title' => 'required|string|max:255',
-//            'meeting_link' => 'nullable|url',
-//        ]);
-//
-//        // Check if a meeting already exists and isn't expired
-//        $existingMeeting = ResearchMeeting::where('research_project_id', $project->id)
-//            ->whereNull('final_time')
-//            ->orWhere('final_time', '>', now())
-//            ->first();
-//
-//        if ($existingMeeting) {
-//            return back()->with('error', 'You cannot create a new meeting until the current meeting is finalized or expired.');
-//        }
-//
-//        // Create the meeting
-//        $meeting = ResearchMeeting::create([
-//            'research_project_id' => $project->id,
-//            'created_by' => auth()->id(),
-//            'time1' => $request->time1,
-//            'time2' => $request->time2,
-//            'time3' => $request->time3,
-//            'title' => $request->title,
-//            'meeting_link' => $request->meeting_link,
-//        ]);
-//
-////        // Notify team members
-////        foreach ($project->teamMembers as $member) {
-////            $member->notify(new MeetingCreatedNotification($meeting));
-////        }
-//
-//        return back()->with('message', 'Meeting created successfully.');
-//    }
-
 
     public function createMeeting(Request $request, $projectId)
     {
@@ -143,8 +97,6 @@ class ResearchProjectMeetingController extends Controller
         return back()->with('message', 'Your response has been recorded.');
     }
 
-
-
     public function deleteMeeting($meetingId)
     {
         $meeting = ResearchMeeting::findOrFail($meetingId);
@@ -155,11 +107,6 @@ class ResearchProjectMeetingController extends Controller
         }
 
         $meeting->delete();
-
-//        // Notify team members about the deletion
-//        foreach ($meeting->researchProject->teamMembers as $member) {
-//            $member->notify(new MeetingDeletedNotification($meeting));
-//        }
 
         return back()->with('message', 'Meeting deleted successfully.');
     }

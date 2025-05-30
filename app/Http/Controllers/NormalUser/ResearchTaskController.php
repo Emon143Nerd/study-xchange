@@ -9,10 +9,6 @@ use App\Models\NormalUser\ResearchTeamMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
-
-
-
-
 class ResearchTaskController extends Controller
 {
     public function create($researchProjectId)
@@ -26,7 +22,6 @@ class ResearchTaskController extends Controller
 
         return view('normal-user.research-collaboration.task.add',compact('researchProject','teamMembers'));
     }
-
 
     public function store(Request $request)
     {

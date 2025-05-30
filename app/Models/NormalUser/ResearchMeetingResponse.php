@@ -6,10 +6,6 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-
-
-
-
 class ResearchMeetingResponse extends Model
 {
     use HasFactory;

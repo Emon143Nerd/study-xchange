@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use App\Models\User;
 
-
-
 class ResearchProject extends Model
 {
     protected $fillable = [
