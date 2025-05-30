@@ -484,7 +484,6 @@ class ResourceSpaceController extends Controller
 //    }
 
 
-
     public function dashboard($id)
     {
         $resourceSpace = ResourceSpace::findOrFail($id);

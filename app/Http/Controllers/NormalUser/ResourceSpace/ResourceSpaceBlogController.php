@@ -45,7 +45,6 @@ class ResourceSpaceBlogController extends Controller
     public function update(Request $request, $id)
     {
 //        dd($request->all()); // Check request data before updating
-
         $request->validate([
             'resource_space_id' => 'required|integer|exists:resource_spaces,id', // Ensure it exists in the resource_spaces table
             'user_id' => 'required|integer|exists:users,id', // Ensure it exists in the users table

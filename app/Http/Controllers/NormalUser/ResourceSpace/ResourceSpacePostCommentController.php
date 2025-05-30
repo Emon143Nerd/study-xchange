@@ -16,7 +16,6 @@ class ResourceSpacePostCommentController extends Controller
             'parent_id' => 'nullable|exists:resource_space_post_comments,id', // Validate parent_id for nested replies
         ]);
 
-        // Delegate the creation of the comment to the model
         ResourceSpacePostComment::newResourceSpacePostComment($request->merge(['resource_space_post_id' => $postId]));
 
         return back()->with('success', 'Comment added successfully!');
