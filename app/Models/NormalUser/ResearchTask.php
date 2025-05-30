@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
+
 class ResearchTask extends Model
 {
     private static $researchTask, $image, $extension, $imageName, $directory, $imageUrl;

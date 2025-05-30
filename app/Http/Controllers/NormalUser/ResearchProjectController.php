@@ -47,8 +47,6 @@ class ResearchProjectController extends Controller
         return view('normal-user.research-collaboration.project.index', compact('researchProjects','totalProjects', 'pendingProjects', 'ongoingProjects', 'completedProjects'));
     }
 
-
-
     public function detail($id)
     {
         // Fetch the research project with its related tasks and team members
@@ -372,8 +370,5 @@ class ResearchProjectController extends Controller
 
         return redirect()->route('normal-user.research-project.index')->with('message', 'Project deleted successfully');
     }
-
-
-
 
 }

@@ -1,6 +1,5 @@
 <?php
-//hi i am shanto
-//its done
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Job\CompanyController;
@@ -34,9 +33,6 @@ use App\Http\Controllers\University\QuizController;
 use App\Http\Controllers\University\DescriptiveController;
 use App\Http\Controllers\NormalUser\ResourceSpace\ResourceSpaceBlogController;
 use App\Http\Controllers\NormalUser\CareerRecommendationController;
-
-
-
 
 // Super Admin
 Route::get('/super-admin/dashboard', function () {
@@ -155,10 +151,7 @@ Route::middleware(['auth', 'verified', 'university-user'])->group(function () {
     Route::get('/course-descriptive-question/{assessmentResultId}/edit', [DescriptiveController::class, 'studentDescriptiveResponseEdit'])->name('university-user.descriptive.response.edit');
     Route::put('/course-descriptive-question/{assessmentResultId}', [DescriptiveController::class, 'studentDescriptiveResponseUpdate'])->name('university-user.descriptive.response.update');
 
-
-
 });
-
 
 
 // Normal User
@@ -288,7 +281,7 @@ Route::middleware(['auth', 'verified', 'normal-user'])->group(function () {
     // Dashboard
     Route::get('resource-space/{resourceSpaceId}/engagement', [ResourceSpaceController::class, 'dashboard'])->name('normal-user.resource-space-post.dashboard');
 
-    
+
     // Jobs
     Route::get('/Jobs/list', [JobController::class, 'index'])->name('normal-user.job.index');
     Route::get('/jobs/search', [JobController::class, 'search'])->name('normal-user.job.search');
@@ -312,9 +305,6 @@ Route::middleware(['auth', 'verified', 'normal-user'])->group(function () {
         ->name('normal-user.resource-space.show');
 
 });
-
-
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
