@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models\Job;
-
+//
 use Illuminate\Database\Eloquent\Model;
 
 class JobCircular extends Model
