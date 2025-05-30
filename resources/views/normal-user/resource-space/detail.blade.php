@@ -610,50 +610,75 @@
                                 </div>
 
 
-{{--                                <div>--}}
-{{--                                    <button class="btn btn-light btn-sm text-primary me-2" data-bs-toggle="modal" data-bs-target="#commentModal"><i class="bi bi-chat-dots-fill"></i> Comments</button>--}}
+                                <div>
+                                    <button class="btn btn-light btn-sm text-primary me-2" data-bs-toggle="modal" data-bs-target="#commentModal"><i class="bi bi-chat-dots-fill"></i> Comments</button>
+{{--                                    <button class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 comment-trigger-btn" data-bs-toggle="modal" data-bs-target="#commentModal">--}}
+{{--                                        <i class="bi bi-chat-dots-fill"></i>--}}
+{{--                                        <span>Comments</span>--}}
+{{--                                    </button>--}}
 {{--                                    <button class="btn btn-light btn-sm text-primary"><i class="bi bi-share-fill"></i> Share</button>--}}
-{{--                                </div>--}}
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Comments Section -->
                         <!-- Modal to post comments -->
                         <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
+                                <div class="modal-content border-0 shadow-lg">
                                     <!-- Modal Header -->
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="commentModalLabel">Post Comments</h5>
+                                    <div class="modal-header bg-light border-0 pb-3">
+                                        <h5 class="modal-title fw-bold text-dark" id="commentModalLabel">
+                                            <i class="bi bi-chat-dots me-2 text-primary"></i>Comments
+                                        </h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
 
                                     <!-- Modal Body -->
-                                    <div class="modal-body">
+                                    <div class="modal-body px-4 py-3">
                                         <!-- Add New Comment -->
-                                        <div class="mb-4">
-                                            <div class="d-flex align-items-start">
-                                                <img src="{{ auth()->user()->profile_picture ?? 'https://via.placeholder.com/50' }}"
-                                                     alt="User Avatar"
-                                                     class="rounded-circle me-2"
-                                                     style="width: 50px; height: 50px;">
-                                                <form action="{{ route('normal-user.resource-space-post.comment', ['post' => $post->id]) }}" method="POST" class="w-100">
-                                                    @csrf
-                                                    <textarea class="form-control" name="comment" rows="2" placeholder="Write your comment..." required></textarea>
-                                                    <div class="d-flex justify-content-end mt-2">
-                                                        <button type="submit" class="btn btn-primary btn-sm">Post Comment</button>
+                                        <div class="new-comment-section mb-4">
+                                            <div class="card border-0 bg-light">
+                                                <div class="card-body p-3">
+                                                    <div class="d-flex align-items-start gap-3">
+                                                        <div class="avatar-container">
+                                                            <img src="{{ asset(auth()->user()->image) }}"
+                                                                 alt="User Avatar"
+                                                                 class="user-avatar">
+                                                        </div>
+                                                        <form action="{{ route('normal-user.resource-space-post.comment', ['post' => $post->id]) }}" method="POST" class="flex-grow-1">
+                                                            @csrf
+                                                            <div class="form-group mb-3">
+                                        <textarea class="form-control border-0 shadow-sm"
+                                                  name="comment"
+                                                  rows="3"
+                                                  placeholder="Share your thoughts..."
+                                                  required
+                                                  style="resize: none; background-color: white;"></textarea>
+                                                            </div>
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="submit" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">
+                                                                    <i class="bi bi-send me-1"></i>Post Comment
+                                                                </button>
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                </form>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <hr>
+                                        <!-- Comments Section -->
+                                        <div class="comments-container">
+                                            <div class="comments-header mb-3">
+                                                <h6 class="text-muted mb-0">
+                                                    <i class="bi bi-chat-square-text me-2"></i>Discussion
+                                                </h6>
+                                            </div>
 
-                                        <!-- Recursive Comment Rendering -->
-                                        <div class="comment-section">
-                                            @foreach ($comments as $comment)
-                                                @include('normal-user.resource-space.post-comments.comment', ['comment' => $comment])
-                                            @endforeach
+                                            <div class="comment-section">
+                                                @foreach ($comments as $comment)
+                                                    @include('normal-user.resource-space.post-comments.comment', ['comment' => $comment])
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

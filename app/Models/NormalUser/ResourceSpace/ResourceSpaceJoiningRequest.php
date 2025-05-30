@@ -14,7 +14,7 @@ class ResourceSpaceJoiningRequest extends Model
         'user_id', 'resource_space_id','resource_space_creator_id', 'answers', 'status',
     ];
 
-    // Define relationships
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

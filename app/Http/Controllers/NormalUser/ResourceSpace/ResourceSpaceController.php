@@ -17,6 +17,7 @@ use App\Notifications\ResourceSpaceRequestResponseNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
+use Carbon\Carbon;
 
 class ResourceSpaceController extends Controller
 {
@@ -417,12 +418,79 @@ class ResourceSpaceController extends Controller
     }
 
 
+//    public function dashboard($id)
+//    {
+//        $resourceSpace = ResourceSpace::findOrFail($id);
+//
+//        // Get engagement data (you can reuse your getEngagement method logic here)
+//        $engagementData = $this->getEngagement($id);
+//        // Fetch resource space posts with comments (including nested replies)
+//        $posts = ResourceSpacePost::where('resource_space_id', $id)
+//            ->with(['comments' => function ($query) {
+//                $query->whereNull('parent_id')->with('replies');
+//            }])
+//            ->latest()
+//            ->get();
+//
+//        // Pass the data to the view
+//        return view('normal-user.resource-space.resourceSpaceDashboard', [
+//            'postCount' => $engagementData['post_count'],
+//            'memberCount' => $engagementData['member_count'],
+//            'totalUpvotes' => $engagementData['total_upvotes'],
+//            'totalDownvotes' => $engagementData['total_downvotes'],
+//            'totalComments' => $engagementData['total_comments'],
+//            'totalEngagement' => $engagementData['total_engagement'],
+//            'posts' => $posts,
+//            'resourceSpace' => $resourceSpace
+//        ]);
+//    }
+//
+//    // Define the getEngagement method
+//    public function getEngagement($id)
+//    {
+//        $resourceSpace = ResourceSpace::findOrFail($id);
+//        // Count the total posts in the resource space
+//        $postCount = ResourceSpacePost::where('resource_space_id', $id)->count();
+//
+//        // Count the total members in the resource space
+//        $memberCount = DB::table('resource_space_users')->where('resource_space_id', $id)->count();
+//
+//        // Count the total upvotes and downvotes for all posts in the resource space
+//        $totalUpvotes = ResourceSpacePostVote::whereIn('resource_space_post_id', function($query) use ($id) {
+//            $query->select('id')->from('resource_space_posts')->where('resource_space_id', $id);
+//        })->where('vote_type', 'upvote')->count();
+//
+//        $totalDownvotes = ResourceSpacePostVote::whereIn('resource_space_post_id', function($query) use ($id) {
+//            $query->select('id')->from('resource_space_posts')->where('resource_space_id', $id);
+//        })->where('vote_type', 'downvote')->count();
+//
+//        // Count the total comments for all posts in the resource space
+//        $totalComments = ResourceSpacePostComment::whereIn('resource_space_post_id', function($query) use ($id) {
+//            $query->select('id')->from('resource_space_posts')->where('resource_space_id', $id);
+//        })->count();
+//
+//        // Total Engagement
+//        $totalEngagement = $postCount + $memberCount + $totalUpvotes + $totalDownvotes + $totalComments;
+//
+//
+//        return [
+//            'post_count' => $postCount,
+//            'member_count' => $memberCount,
+//            'total_upvotes' => $totalUpvotes,
+//            'total_downvotes' => $totalDownvotes,
+//            'total_comments' => $totalComments,
+//            'total_engagement' => $totalEngagement
+//        ];
+//    }
+
+
     public function dashboard($id)
     {
         $resourceSpace = ResourceSpace::findOrFail($id);
 
-        // Get engagement data (you can reuse your getEngagement method logic here)
-        $engagementData = $this->getEngagement($id);
+        // Get comprehensive engagement data
+        $engagementData = $this->getAdvancedEngagement($id);
+
         // Fetch resource space posts with comments (including nested replies)
         $posts = ResourceSpacePost::where('resource_space_id', $id)
             ->with(['comments' => function ($query) {
@@ -432,29 +500,57 @@ class ResourceSpaceController extends Controller
             ->get();
 
         // Pass the data to the view
-        return view('normal-user.resource-space.resourceSpaceDashboard', [
-            'postCount' => $engagementData['post_count'],
-            'memberCount' => $engagementData['member_count'],
-            'totalUpvotes' => $engagementData['total_upvotes'],
-            'totalDownvotes' => $engagementData['total_downvotes'],
-            'totalComments' => $engagementData['total_comments'],
-            'totalEngagement' => $engagementData['total_engagement'],
+        return view('normal-user.resource-space.resourceSpaceDashboard', array_merge($engagementData, [
             'posts' => $posts,
             'resourceSpace' => $resourceSpace
-        ]);
+        ]));
     }
 
-    // Define the getEngagement method
-    public function getEngagement($id)
+    public function getAdvancedEngagement($id)
     {
         $resourceSpace = ResourceSpace::findOrFail($id);
-        // Count the total posts in the resource space
-        $postCount = ResourceSpacePost::where('resource_space_id', $id)->count();
 
-        // Count the total members in the resource space
+        // Basic metrics
+        $postCount = ResourceSpacePost::where('resource_space_id', $id)->count();
         $memberCount = DB::table('resource_space_users')->where('resource_space_id', $id)->count();
 
-        // Count the total upvotes and downvotes for all posts in the resource space
+        // Advanced vote metrics
+        $voteMetrics = $this->getVoteMetrics($id);
+
+        // Comment metrics
+        $commentMetrics = $this->getCommentMetrics($id);
+
+        // Quality metrics
+        $qualityMetrics = $this->getQualityMetrics($id);
+
+        // Engagement metrics
+        $engagementMetrics = $this->getEngagementMetrics($id);
+
+        // Blog metrics
+        $blogMetrics = $this->getBlogMetrics($id);
+
+        // User activity metrics
+        $userActivityMetrics = $this->getUserActivityMetrics($id);
+
+        // Calculate weighted engagement score
+        $weightedEngagementScore = $this->calculateWeightedEngagementScore([
+            'quality_metrics' => $qualityMetrics,
+            'engagement_metrics' => $engagementMetrics,
+            'user_activity' => $userActivityMetrics,
+            'blog_metrics' => $blogMetrics,
+            'comment_metrics' => $commentMetrics,
+            'vote_metrics' => $voteMetrics
+        ]);
+
+        return array_merge([
+            'post_count' => $postCount,
+            'member_count' => $memberCount,
+            'weighted_engagement_score' => $weightedEngagementScore
+        ], $voteMetrics, $commentMetrics, $qualityMetrics, $engagementMetrics, $blogMetrics, $userActivityMetrics);
+    }
+
+    private function getVoteMetrics($id)
+    {
         $totalUpvotes = ResourceSpacePostVote::whereIn('resource_space_post_id', function($query) use ($id) {
             $query->select('id')->from('resource_space_posts')->where('resource_space_id', $id);
         })->where('vote_type', 'upvote')->count();
@@ -463,22 +559,221 @@ class ResourceSpaceController extends Controller
             $query->select('id')->from('resource_space_posts')->where('resource_space_id', $id);
         })->where('vote_type', 'downvote')->count();
 
-        // Count the total comments for all posts in the resource space
+        $netVotes = $totalUpvotes - $totalDownvotes;
+        $voteRatio = $totalDownvotes > 0 ? $totalUpvotes / $totalDownvotes : ($totalUpvotes > 0 ? 100 : 0);
+
+        return [
+            'total_upvotes' => $totalUpvotes,
+            'total_downvotes' => $totalDownvotes,
+            'net_votes' => $netVotes,
+            'vote_ratio' => round($voteRatio, 2)
+        ];
+    }
+
+    private function getCommentMetrics($id)
+    {
         $totalComments = ResourceSpacePostComment::whereIn('resource_space_post_id', function($query) use ($id) {
             $query->select('id')->from('resource_space_posts')->where('resource_space_id', $id);
         })->count();
 
-        // Total Engagement
-        $totalEngagement = $postCount + $memberCount + $totalUpvotes + $totalDownvotes + $totalComments;
+        // Calculate comment thread depth
+        $avgThreadDepth = ResourceSpacePostComment::whereIn('resource_space_post_id', function($query) use ($id) {
+            $query->select('id')->from('resource_space_posts')->where('resource_space_id', $id);
+        })
+            ->whereNotNull('parent_id')
+            ->selectRaw('AVG(CASE WHEN parent_id IS NOT NULL THEN 1 ELSE 0 END) as avg_depth')
+            ->first()->avg_depth ?? 0;
 
+        // Comments by verified users
+        $verifiedUserComments = ResourceSpacePostComment::whereIn('resource_space_post_id', function($query) use ($id) {
+            $query->select('id')->from('resource_space_posts')->where('resource_space_id', $id);
+        })
+            ->whereIn('user_id', function($query) {
+                $query->select('id')->from('users')->where('is_verified', true);
+            })
+            ->count();
 
         return [
-            'post_count' => $postCount,
-            'member_count' => $memberCount,
-            'total_upvotes' => $totalUpvotes,
-            'total_downvotes' => $totalDownvotes,
             'total_comments' => $totalComments,
-            'total_engagement' => $totalEngagement
+            'avg_thread_depth' => round($avgThreadDepth, 2),
+            'verified_user_comments' => $verifiedUserComments
+        ];
+    }
+
+    private function getQualityMetrics($id)
+    {
+        // Average post quality score (upvotes - downvotes per post)
+        $avgPostQuality = DB::select("
+            SELECT AVG(COALESCE(upvote_count, 0) - COALESCE(downvote_count, 0)) as avg_quality
+            FROM resource_space_posts rsp
+            LEFT JOIN (
+                SELECT resource_space_post_id, COUNT(*) as upvote_count
+                FROM resource_space_post_votes
+                WHERE vote_type = 'upvote'
+                GROUP BY resource_space_post_id
+            ) upvotes ON rsp.id = upvotes.resource_space_post_id
+            LEFT JOIN (
+                SELECT resource_space_post_id, COUNT(*) as downvote_count
+                FROM resource_space_post_votes
+                WHERE vote_type = 'downvote'
+                GROUP BY resource_space_post_id
+            ) downvotes ON rsp.id = downvotes.resource_space_post_id
+            WHERE rsp.resource_space_id = ?
+        ", [$id]);
+
+        $avgPostQualityScore = $avgPostQuality[0]->avg_quality ?? 0;
+
+        // Posts by company users (role = 4)
+        $companyUserPosts = ResourceSpacePost::where('resource_space_id', $id)
+            ->whereIn('user_id', function($query) {
+                $query->select('id')->from('users')->where('role', 4);
+            })
+            ->count();
+
+        return [
+            'avg_post_quality_score' => round($avgPostQualityScore, 2),
+            'company_user_posts' => $companyUserPosts
+        ];
+    }
+
+    private function getEngagementMetrics($id)
+    {
+        // Active users in last 30 days (based on posts and comments)
+        $monthlyActiveUsers = DB::select("
+            SELECT COUNT(DISTINCT user_id) as mau
+            FROM (
+                SELECT user_id, created_at FROM resource_space_posts WHERE resource_space_id = ? AND created_at >= ?
+                UNION
+                SELECT rsc.user_id, rsc.created_at FROM resource_space_post_comments rsc
+                JOIN resource_space_posts rsp ON rsc.resource_space_post_id = rsp.id
+                WHERE rsp.resource_space_id = ? AND rsc.created_at >= ?
+            ) as activities
+        ", [$id, Carbon::now()->subDays(30), $id, Carbon::now()->subDays(30)]);
+
+        $mau = $monthlyActiveUsers[0]->mau ?? 0;
+
+        // Active users in last 7 days
+        $weeklyActiveUsers = DB::select("
+            SELECT COUNT(DISTINCT user_id) as wau
+            FROM (
+                SELECT user_id, created_at FROM resource_space_posts WHERE resource_space_id = ? AND created_at >= ?
+                UNION
+                SELECT rsc.user_id, rsc.created_at FROM resource_space_post_comments rsc
+                JOIN resource_space_posts rsp ON rsc.resource_space_post_id = rsp.id
+                WHERE rsp.resource_space_id = ? AND rsc.created_at >= ?
+            ) as activities
+        ", [$id, Carbon::now()->subDays(7), $id, Carbon::now()->subDays(7)]);
+
+        $wau = $weeklyActiveUsers[0]->wau ?? 0;
+
+        $stickinessRatio = $mau > 0 ? ($wau / $mau) * 100 : 0;
+
+        return [
+            'monthly_active_users' => $mau,
+            'weekly_active_users' => $wau,
+            'stickiness_ratio' => round($stickinessRatio, 2)
+        ];
+    }
+
+    private function getBlogMetrics($id)
+    {
+        $totalBlogs = ResourceSpaceBlog::where('resource_space_id', $id)->count();
+        $totalBlogHits = ResourceSpaceBlog::where('resource_space_id', $id)->sum('hit_count');
+        $avgBlogHits = $totalBlogs > 0 ? $totalBlogHits / $totalBlogs : 0;
+
+        return [
+            'total_blogs' => $totalBlogs,
+            'total_blog_hits' => $totalBlogHits,
+            'avg_blog_hits' => round($avgBlogHits, 2)
+        ];
+    }
+
+    private function getUserActivityMetrics($id)
+    {
+        // New member activation rate (members who posted/commented within 7 days of joining)
+        $newMemberActivation = DB::select("
+            SELECT COUNT(*) as active_new_members
+            FROM resource_space_users rsu
+            WHERE rsu.resource_space_id = ?
+            AND rsu.created_at >= ?
+            AND (
+                EXISTS (
+                    SELECT 1 FROM resource_space_posts rsp
+                    WHERE rsp.user_id = rsu.user_id
+                    AND rsp.resource_space_id = ?
+                    AND rsp.created_at BETWEEN rsu.created_at AND DATE_ADD(rsu.created_at, INTERVAL 7 DAY)
+                )
+                OR EXISTS (
+                    SELECT 1 FROM resource_space_post_comments rsc
+                    JOIN resource_space_posts rsp ON rsc.resource_space_post_id = rsp.id
+                    WHERE rsc.user_id = rsu.user_id
+                    AND rsp.resource_space_id = ?
+                    AND rsc.created_at BETWEEN rsu.created_at AND DATE_ADD(rsu.created_at, INTERVAL 7 DAY)
+                )
+            )
+        ", [$id, Carbon::now()->subDays(30), $id, $id]);
+
+        $totalNewMembers = DB::table('resource_space_users')
+            ->where('resource_space_id', $id)
+            ->where('created_at', '>=', Carbon::now()->subDays(30))
+            ->count();
+
+        $activationRate = $totalNewMembers > 0 ?
+            ($newMemberActivation[0]->active_new_members / $totalNewMembers) * 100 : 0;
+
+        // Verified members count
+        $verifiedMembers = DB::table('resource_space_users')
+            ->where('resource_space_id', $id)
+            ->whereIn('user_id', function($query) {
+                $query->select('id')->from('users')->where('is_verified', true);
+            })
+            ->count();
+
+        return [
+            'new_member_activation_rate' => round($activationRate, 2),
+            'verified_members' => $verifiedMembers,
+            'total_new_members_30d' => $totalNewMembers
+        ];
+    }
+
+    private function calculateWeightedEngagementScore($metrics)
+    {
+        // Weighted formula coefficients
+        $weights = [
+            'avg_post_quality' => 0.25,      // α
+            'verified_members' => 0.15,      // β
+            'net_votes' => 0.15,             // γ
+            'avg_blog_hits' => 0.10,         // δ
+            'thread_depth' => 0.10,          // ε
+            'stickiness' => 0.10,            // ζ
+            'company_posts' => 0.08,         // η
+            'activation_rate' => 0.07        // θ
+        ];
+
+        $score =
+            $weights['avg_post_quality'] * max(0, $metrics['quality_metrics']['avg_post_quality_score']) +
+            $weights['verified_members'] * $metrics['user_activity']['verified_members'] +
+            $weights['net_votes'] * max(0, $metrics['vote_metrics']['net_votes']) +
+            $weights['avg_blog_hits'] * $metrics['blog_metrics']['avg_blog_hits'] +
+            $weights['thread_depth'] * $metrics['comment_metrics']['avg_thread_depth'] * 10 +
+            $weights['stickiness'] * $metrics['engagement_metrics']['stickiness_ratio'] +
+            $weights['company_posts'] * $metrics['quality_metrics']['company_user_posts'] * 2 +
+            $weights['activation_rate'] * $metrics['user_activity']['new_member_activation_rate'];
+
+        return round($score, 2);
+    }
+
+    // Legacy method for backward compatibility
+    public function getEngagement($id)
+    {
+        $basicData = $this->getAdvancedEngagement($id);
+        return [
+            'post_count' => $basicData['post_count'],
+            'member_count' => $basicData['member_count'],
+            'total_upvotes' => $basicData['total_upvotes'],
+            'total_downvotes' => $basicData['total_downvotes'],
+            'total_comments' => $basicData['total_comments'],
+            'total_engagement' => $basicData['total_upvotes'] + $basicData['total_downvotes'] + $basicData['total_comments'] + $basicData['post_count'] + $basicData['member_count']
         ];
     }
 

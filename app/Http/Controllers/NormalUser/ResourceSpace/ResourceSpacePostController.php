@@ -27,7 +27,6 @@ class ResourceSpacePostController extends Controller
         // Find the post by ID or show a 404 if not found
         $post = ResourceSpacePost::findOrFail($id);
 
-        // Pass the post to the view
         return view('normal-user.resource-space.detail', compact('post'));
     }
 

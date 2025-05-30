@@ -9,6 +9,7 @@ class ResourceSpace extends Model
     private static $resourceSpace, $image, $imageName, $directory, $extension, $imageUrl;
     protected $fillable = ['user_id', 'name', 'description', 'type', 'image', 'status'];
 
+
     public static function newResourceSpace($request)
     {
         // Check if an image is provided

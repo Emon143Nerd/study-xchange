@@ -10,6 +10,7 @@ class ResourceSpaceBlog extends Model
     private static $resourceSpaceBlog, $image, $imageName, $directory, $extension, $imageUrl;
     protected $fillable = ['resource_space_id', 'user_id', 'title', 'description', 'image', 'status','hit_count'];
 
+
     public static function newResourceSpaceBlog($request)
     {
         // Check if an image is provided
