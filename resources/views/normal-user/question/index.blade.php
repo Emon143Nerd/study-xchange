@@ -237,6 +237,7 @@
                                 <!-- Displaying Comment count -->
                                 <span class="stat-item comments text-sm text-green-600 font-semibold px-4 py-2 rounded-lg bg-gray-100 hover:bg-green-100"><i class='bx bx-comment'></i>{{ $question->questionComments()->count() }} Comments</span>
                                 <!-- Displaying Hit count as Views -->
+
                                 <span class="stat-item views text-sm text-gray-600 font-semibold px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200"><i class='bx bx-show'></i>{{ $question->hit_count }} Views</span>
                             </div>
 
