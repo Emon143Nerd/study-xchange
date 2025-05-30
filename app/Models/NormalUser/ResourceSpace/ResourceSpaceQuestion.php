@@ -8,7 +8,7 @@ class ResourceSpaceQuestion extends Model
 {
     protected $fillable = ['resource_space_id', 'question'];
 
-    // Relationship with Resource Space
+
     public function resourceSpace()
     {
         return $this->belongsTo(ResourceSpace::class);

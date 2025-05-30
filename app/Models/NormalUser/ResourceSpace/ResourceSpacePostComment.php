@@ -11,6 +11,7 @@ class ResourceSpacePostComment extends Model
     protected $fillable = ['user_id', 'resource_space_post_id', 'comment', 'parent_id', 'status'];
     private static $resourceSpacePostComment;
 
+
     public static function newResourceSpacePostComment($request)
     {
         self::$resourceSpacePostComment = new ResourceSpacePostComment();

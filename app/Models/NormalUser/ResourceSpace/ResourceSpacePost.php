@@ -10,6 +10,7 @@ class ResourceSpacePost extends Model
     private static $resourceSpacePost, $image, $imageName, $directory, $extension, $imageUrl;
     protected $fillable = ['resource_space_id', 'user_id', 'title', 'description', 'image', 'status'];
 
+
     public static function newResourceSpacePost($request)
     {
         // Check if an image is provided
