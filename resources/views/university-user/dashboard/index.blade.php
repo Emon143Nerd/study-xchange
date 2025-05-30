@@ -111,6 +111,8 @@
 {{--                                        </div>--}}
 {{--                                    </div>--}}
 {{--                                </div>--}}
+
+
 {{--                                <div class="card-body">--}}
 {{--                                    <div id="chartBar"></div>--}}
 {{--                                    <div class="d-flex">--}}
