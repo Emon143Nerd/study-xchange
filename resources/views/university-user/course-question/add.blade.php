@@ -60,6 +60,7 @@
                                         </div>
 
                                         <!-- Difficulty Level -->
+
                                         <div class="mb-3">
                                             <label class="form-label w-100">Difficulty Level</label>
                                             <select class="form-control solid default-select" name="difficulty_level">
@@ -80,6 +81,7 @@
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
+
 
                                         <!-- Answer -->
                                         <div class="mb-3">
