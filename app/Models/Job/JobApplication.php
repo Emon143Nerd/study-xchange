@@ -9,7 +9,7 @@ use App\Models\UserJobPreference;
 use App\Models\UserSkill;
 use App\Models\UserWorkExperience;
 use Illuminate\Database\Eloquent\Model;
-
+//
 class JobApplication extends Model
 {
     private static $jobApplication, $image, $imageName, $directory, $extension, $imageUrl;
