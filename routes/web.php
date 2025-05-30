@@ -287,6 +287,7 @@ Route::middleware(['auth', 'verified', 'normal-user'])->group(function () {
     // Dashboard
     Route::get('resource-space/{resourceSpaceId}/engagement', [ResourceSpaceController::class, 'dashboard'])->name('normal-user.resource-space-post.dashboard');
 
+    
     // Jobs
     Route::get('/Jobs/list', [JobController::class, 'index'])->name('normal-user.job.index');
     Route::get('/jobs/search', [JobController::class, 'search'])->name('normal-user.job.search');
